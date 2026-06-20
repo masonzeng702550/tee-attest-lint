@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tee-attest-lint"
+version = "0.1.0"
+description = "Linter and security grader for confidential-computing remote attestation verifiers (AMD SEV-SNP, Intel TDX, Intel SGX)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Mason Zeng" }]
+keywords = [
+    "confidential-computing",
+    "remote-attestation",
+    "sev-snp",
+    "tdx",
+    "sgx",
+    "security",
+    "linter",
+]
+dependencies = [
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+attest-lint = "tee_attest_lint.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
