@@ -1,0 +1,28 @@
+apiVersion: attest-lint/v1
+kind: AttestationPolicy
+metadata:
+  name: dangerously-loose-policy
+spec:
+  tee: sev-snp
+  trust_roots:
+    vendor_root: amd-ark
+    require_chain_to_root: false      # R-CHAIN-001
+  identity:
+    measurements:
+      - "*"                           # R-MEAS-001: wildcard measurement
+    require_measurement_pin: false    # R-MEAS-001
+  tcb:
+    allow_out_of_date: true           # R-RESULT-001 (no min_tcb -> R-TCB-001)
+  state:
+    allow_debug: true                 # R-DEBUG-001
+    require_validated: false          # R-DEBUG-001
+  freshness:
+    require_nonce: false              # R-FRESH-001
+  channel_binding:
+    require_report_data_binding: false  # R-BIND-001
+  revocation:
+    check_crl: false                  # R-REVOKE-001
+  boot:
+    lock_kernel_cmdline: false        # R-BOOT-001
+    allowed_cmdline_hashes:
+      - "*"                           # R-BOOT-001

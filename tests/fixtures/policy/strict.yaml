@@ -1,0 +1,36 @@
+apiVersion: attest-lint/v1
+kind: AttestationPolicy
+metadata:
+  name: prod-cvm-policy
+spec:
+  tee: sev-snp
+  trust_roots:
+    vendor_root: amd-ark
+    require_chain_to_root: true
+  identity:
+    measurements:
+      - "abababababababababababababababababababababababababababababababababababababababababababababababab"
+    require_measurement_pin: true
+  tcb:
+    min_tcb:
+      bootloader: 3
+      tee: 0
+      snp: 8
+      microcode: 209
+    allow_out_of_date: false
+  state:
+    allow_debug: false
+    require_validated: true
+  freshness:
+    require_nonce: true
+    max_age_seconds: 300
+  channel_binding:
+    require_report_data_binding: true
+    binding: tls-pubkey-sha512
+  revocation:
+    check_crl: true
+    check_collateral: true
+  boot:
+    lock_kernel_cmdline: true
+    allowed_cmdline_hashes:
+      - "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"

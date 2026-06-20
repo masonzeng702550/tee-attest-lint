@@ -1,0 +1,8 @@
+# Structurally invalid: wrong apiVersion and missing spec.tee.
+apiVersion: attest-lint/v0
+kind: AttestationPolicy
+metadata:
+  name: broken
+spec:
+  identity:
+    measurements: []
